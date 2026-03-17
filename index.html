@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pay - Alva's Astronomy</title>
+    <link rel="icon" type="image/png" href="unnamed.png">
+    <style>
+        :root { --p-glow: #7b2ff7; --bg: #050b18; --accent: #00d4ff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, rgba(123, 47, 247, 0.25) 0%, transparent 90%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.2rem;
+            border-radius: 32px;
+            text-align: center;
+            width: 90%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        /* FIXED LOGO PROPORTIONS */
+        .logo-frame {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(123, 47, 247, 0.1);
+            border-radius: 50%;
+            border: 1px solid rgba(123, 47, 247, 0.3);
+        }
+
+        .hero-logo {
+            width: 85%; /* Keeps a safe margin inside the circle */
+            height: 85%;
+            object-fit: contain; /* CRITICAL: Prevents stretching */
+            mix-blend-mode: screen; 
+            filter: drop-shadow(0 0 8px var(--p-glow));
+        }
+
+        h1 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+        .mission { font-size: 0.7rem; color: var(--accent); margin-top: -0.3rem; }
+
+        .details {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .amt { font-size: 2.2rem; font-weight: 900; margin: 0.2rem 0; }
+
+        .qr-card {
+            background: white;
+            padding: 8px;
+            border-radius: 18px;
+            display: inline-block;
+            margin: 0 auto;
+            box-shadow: 0 0 25px rgba(123, 47, 247, 0.2);
+        }
+        
+        .qr-card img {
+            width: 160px; /* Fixed size for better consistency */
+            height: 160px;
+            display: block;
+        }
+
+        .pay-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: block;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .footer { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-frame">
+            <img src="unnamed.png" alt="Logo" class="hero-logo">
+        </div>
+
+        <div>
+            <h1>Alva's Astronomy Camp</h1>
+            <p class="mission">Igniting curiosity about space</p>
+        </div>
+
+        <div class="details">
+            <span>📅 April 6 – 11</span>
+            <span>📍 <b style="color:#a29bfe">ALVA'S</b></span>
+        </div>
+
+        <div class="amt">₹3,000</div>
+
+        <div class="qr-card">
+            <img src="upi_qr.png" alt="Scan to Pay">
+        </div>
+
+        <a href="upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS%20KANNADA&am=3000&cu=INR&tn=Astronomy%20Fees" class="pay-btn">
+            OPEN UPI APP
+        </a>
+
+        <p class="footer">Alva's Education Foundation</p>
+    </div>
+
+</body>
+</html>
