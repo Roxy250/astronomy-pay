@@ -34,73 +34,56 @@
             max-width: 360px;
             display: flex;
             flex-direction: column;
-            gap: 0.7rem;
+            gap: 0.6rem;
         }
 
-        /* FIXED LOGO PROPORTIONS */
         .logo-frame {
-            width: 90px;
-            height: 90px;
+            width: 80px; height: 80px;
             margin: 0 auto;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             background: rgba(123, 47, 247, 0.1);
             border-radius: 50%;
             border: 1px solid rgba(123, 47, 247, 0.3);
         }
 
         .hero-logo {
-            width: 85%; /* Keeps a safe margin inside the circle */
-            height: 85%;
-            object-fit: contain; /* CRITICAL: Prevents stretching */
+            width: 80%; height: 80%;
+            object-fit: contain;
             mix-blend-mode: screen; 
             filter: drop-shadow(0 0 8px var(--p-glow));
         }
 
-        h1 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+        h1 { font-size: 1.1rem; font-weight: 700; color: #fff; }
         .mission { font-size: 0.7rem; color: var(--accent); margin-top: -0.3rem; }
 
-        .details {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px;
-            border-radius: 14px;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .amt { font-size: 2.2rem; font-weight: 900; margin: 0.2rem 0; }
+        .amt { font-size: 2rem; font-weight: 900; margin: 0.2rem 0; }
 
         .qr-card {
-            background: white;
-            padding: 8px;
-            border-radius: 18px;
-            display: inline-block;
-            margin: 0 auto;
+            background: white; padding: 6px; border-radius: 16px;
+            display: inline-block; margin: 0 auto;
             box-shadow: 0 0 25px rgba(123, 47, 247, 0.2);
         }
-        
-        .qr-card img {
-            width: 160px; /* Fixed size for better consistency */
-            height: 160px;
-            display: block;
-        }
+        .qr-card img { width: 150px; height: 150px; display: block; }
+
+        /* BUTTON STYLING */
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
 
         .pay-btn {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            color: white;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 16px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            display: block;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            color: white; text-decoration: none;
+            padding: 14px; border-radius: 14px;
+            font-weight: 800; font-size: 1rem;
+            display: block; box-shadow: 0 8px 15px rgba(108, 92, 231, 0.3);
         }
 
-        .footer { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; }
+        .ios-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem; padding: 10px;
+            color: #ccc;
+        }
+
+        .footer { font-size: 0.55rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -115,23 +98,39 @@
             <p class="mission">Igniting curiosity about space</p>
         </div>
 
-        <div class="details">
-            <span>📅 April 6 – 11</span>
-            <span>📍 <b style="color:#a29bfe">ALVA'S</b></span>
-        </div>
-
         <div class="amt">₹3,000</div>
 
         <div class="qr-card">
             <img src="upi_qr.png" alt="Scan to Pay">
         </div>
 
-        <a href="upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS%20KANNADA&am=3000&cu=INR&tn=Astronomy%20Fees" class="pay-btn">
-            OPEN UPI APP
-        </a>
+        <div class="btn-group">
+            <a href="upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS%20KANNADA&am=3000&cu=INR&tn=Astronomy%20Fees" class="pay-btn">
+                OPEN UPI APP
+            </a>
+
+            <a href="javascript:void(0)" onclick="fixIPhone()" class="pay-btn ios-btn">
+                iPhone User? Click here if above fails
+            </a>
+        </div>
 
         <p class="footer">Alva's Education Foundation</p>
     </div>
 
+    <script>
+        function fixIPhone() {
+            // iOS often blocks the broad "upi://" intent if WhatsApp hijacks it.
+            // We use a direct window location replacement with minimal parameters.
+            const upiLink = "upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS&am=3000&cu=INR";
+            
+            // Try to force the OS to open the link directly
+            window.location.replace(upiLink);
+            
+            // Secondary fallback for stubborn browsers
+            setTimeout(() => {
+                window.location.href = upiLink;
+            }, 250);
+        }
+    </script>
 </body>
 </html>
