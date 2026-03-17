@@ -1,119 +1,161 @@
-<style>
-    :root { --p-glow: #7b2ff7; --bg: #050b18; --accent: #00d4ff; --btn-grad: linear-gradient(135deg, #6c5ce7, #a29bfe); }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: var(--bg);
-        background-image: radial-gradient(circle at 50% 50%, rgba(123, 47, 247, 0.25) 0%, transparent 90%);
-        color: white;
-        display: flex; justify-content: center; align-items: center;
-        min-height: 100vh; width: 100vw; overflow: hidden; padding: 15px;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pay - Alva's Astronomy Camp</title>
+    <link rel="icon" type="image/png" href="unnamed.png">
+    <style>
+        :root { --p-glow: #7b2ff7; --bg: #050b18; --accent: #00d4ff; --btn-grad: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, rgba(123, 47, 247, 0.25) 0%, transparent 90%);
+            color: white;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; width: 100vw; overflow: hidden; padding: 15px;
+        }
 
-    .container {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        padding: 1.5rem; border-radius: 32px;
-        text-align: center; width: 100%; max-width: 380px;
-        display: flex; flex-direction: column; gap: 0.8rem;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.5rem; border-radius: 32px;
+            text-align: center; width: 100%; max-width: 380px;
+            display: flex; flex-direction: column; gap: 0.8rem;
+            transition: all 0.3s ease-in-out;
+        }
 
-    /* PC ZOOM FIX: Keeps the card square and centered on desktop */
-    .container.zoomed {
-        max-width: 450px;
-        padding: 2rem;
-    }
+        /* PC FIX: Keeps the card compact when zoomed */
+        .container.zoomed { max-width: 340px; gap: 1.2rem; }
 
-    .logo-frame {
-        width: 70px; height: 70px; margin: 0 auto;
-        display: flex; align-items: center; justify-content: center;
-        background: rgba(123, 47, 247, 0.1); border-radius: 50%;
-    }
+        .logo-frame {
+            width: 70px; height: 70px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(123, 47, 247, 0.1); border-radius: 50%;
+        }
 
-    .hero-logo { width: 80%; height: 80%; object-fit: contain; mix-blend-mode: screen; filter: drop-shadow(0 0 8px var(--p-glow)); }
-    h1 { font-size: 1.2rem; text-transform: uppercase; }
-    .mission { font-size: 0.75rem; color: var(--accent); margin-top: -0.4rem; font-style: italic; }
-    .amt { font-size: 2.2rem; font-weight: 900; margin: 0.2rem 0; }
+        .hero-logo { width: 80%; height: 80%; object-fit: contain; mix-blend-mode: screen; filter: drop-shadow(0 0 8px var(--p-glow)); }
+        h1 { font-size: 1.1rem; text-transform: uppercase; }
+        .mission { font-size: 0.7rem; color: var(--accent); margin-top: -0.4rem; font-style: italic; }
+        .amt { font-size: 2.2rem; font-weight: 900; margin: 0.1rem 0; }
 
-    .qr-card {
-        background: white; padding: 12px; border-radius: 20px;
-        display: inline-block; margin: 0 auto;
-        box-shadow: 0 0 30px rgba(123, 47, 247, 0.2);
-        transition: all 0.3s ease;
-    }
-    
-    #qrImage { width: 150px; height: 150px; display: block; transition: all 0.3s ease; }
-
-    /* Enlarges the QR image specifically when zoomed */
-    .qr-zoom #qrImage { 
-        width: 280px; 
-        height: 280px; 
-    }
-
-    .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-    
-    .pay-btn {
-        background: var(--btn-grad); color: white; text-decoration: none;
-        padding: 16px; border-radius: 16px; font-weight: 800; font-size: 1.1rem;
-        box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
-    }
-
-    .wa-btn {
-        background: #25D366; color: white; border: none; font-weight: 700;
-        padding: 14px; border-radius: 14px; font-size: 1rem; margin-top: 10px;
-        display: flex; align-items: center; justify-content: center;
-        text-decoration: none; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-    }
-
-    .sec-btn {
-        background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 0.85rem; padding: 12px; color: #bbb; text-decoration: none; border-radius: 12px;
-    }
-
-    .hidden { display: none !important; }
-    .footer { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; }
-
-    #toast {
-        position: fixed; bottom: 30px; background: var(--p-glow);
-        color: white; padding: 12px 24px; border-radius: 30px;
-        font-size: 0.9rem; opacity: 0; transition: 0.4s; pointer-events: none;
-    }
-</style>
-
-<script>
-    const upiLink = "upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS&am=3000&cu=INR";
-
-    function handleIssues() {
-        if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
-            window.location.replace(upiLink);
+        /* QR CODE WRAPPER FIX */
+        .qr-card {
+            background: white; padding: 15px; border-radius: 20px;
+            display: inline-flex; flex-direction: column; 
+            align-items: center; justify-content: center;
+            margin: 0 auto;
+            width: fit-content; /* Forces the box to wrap tightly around the image */
+            box-shadow: 0 0 30px rgba(123, 47, 247, 0.2);
         }
         
-        // Apply "zoomed" class to the main card for PC proportions
-        document.getElementById('mainCard').classList.add('zoomed');
-        document.getElementById('standardContent').classList.add('hidden');
-        document.getElementById('controls').classList.add('hidden');
-        document.getElementById('qrContainer').classList.add('qr-zoom');
-        document.getElementById('zoomText').classList.remove('hidden');
-        document.getElementById('zoomOptions').classList.remove('hidden');
-    }
+        #qrImage { width: 150px; height: 150px; display: block; transition: 0.3s; }
 
-    function resetView() {
-        document.getElementById('mainCard').classList.remove('zoomed');
-        document.getElementById('standardContent').classList.remove('hidden');
-        document.getElementById('controls').classList.remove('hidden');
-        document.getElementById('qrContainer').classList.remove('qr-zoom');
-        document.getElementById('zoomText').classList.add('hidden');
-        document.getElementById('zoomOptions').classList.add('hidden');
-    }
+        /* The Big QR Fix for PC & Mobile */
+        .qr-zoom #qrImage { width: 240px; height: 240px; }
 
-    function copyLink() {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-            const toast = document.getElementById('toast');
-            toast.style.opacity = "1";
-            setTimeout(() => { toast.style.opacity = "0"; }, 2500);
-        });
-    }
-</script>
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+        .pay-btn {
+            background: var(--btn-grad); color: white; text-decoration: none;
+            padding: 16px; border-radius: 16px; font-weight: 800; font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .wa-btn {
+            background: #25D366; color: white; border: none; font-weight: 700;
+            padding: 14px; border-radius: 14px; font-size: 0.9rem;
+            text-decoration: none; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .sec-btn {
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem; padding: 12px; color: #bbb; text-decoration: none; border-radius: 12px;
+        }
+
+        .hidden { display: none !important; }
+        .footer { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 2px; margin-top: 5px; }
+
+        #toast {
+            position: fixed; bottom: 30px; background: var(--p-glow);
+            color: white; padding: 12px 24px; border-radius: 30px;
+            font-size: 0.9rem; opacity: 0; transition: 0.4s; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div id="standardContent">
+            <div class="logo-frame"><img src="unnamed.png" alt="Logo" class="hero-logo"></div>
+            <h1>Alva's Astronomy</h1>
+            <p class="mission">"Igniting curiosity about space"</p>
+            <div class="amt">₹3,000</div>
+        </div>
+
+        <div class="qr-card" id="qrContainer">
+            <img src="upi_qr.png" alt="Scan to Pay" id="qrImage">
+            <div id="zoomText" class="hidden" style="color:#000; font-size:0.6rem; margin-top:10px; font-weight:bold; line-height:1.2;">
+                SCAN WITH ANOTHER PHONE<br>OR SEND LINK BELOW
+            </div>
+        </div>
+
+        <div class="btn-group" id="controls">
+            <a href="upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS%20KANNADA&am=3000&cu=INR&tn=Astronomy%20Fees" class="pay-btn">
+                OPEN UPI APP
+            </a>
+            <a href="javascript:void(0)" onclick="handleIssues()" class="sec-btn">
+                iPhone User / Issues? Click here
+            </a>
+        </div>
+
+        <div id="zoomOptions" class="hidden" style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="javascript:void(0)" onclick="copyLink()" class="wa-btn">
+                COPY LINK TO SEND VIA WHATSAPP
+            </a>
+            <a href="javascript:void(0)" onclick="resetView()" class="sec-btn">
+                ← BACK TO OPTIONS
+            </a>
+        </div>
+
+        <p class="footer">Alva's Education Foundation</p>
+    </div>
+
+    <div id="toast">Link copied! Paste it in WhatsApp.</div>
+
+    <script>
+        const upiLink = "upi://pay?pa=alvaskannada110127761611@cnrb&pn=ALVAS&am=3000&cu=INR";
+
+        function handleIssues() {
+            if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+                window.location.replace(upiLink);
+            }
+            document.getElementById('mainCard').classList.add('zoomed');
+            document.getElementById('standardContent').classList.add('hidden');
+            document.getElementById('controls').classList.add('hidden');
+            document.getElementById('qrContainer').classList.add('qr-zoom');
+            document.getElementById('zoomText').classList.remove('hidden');
+            document.getElementById('zoomOptions').classList.remove('hidden');
+        }
+
+        function resetView() {
+            document.getElementById('mainCard').classList.remove('zoomed');
+            document.getElementById('standardContent').classList.remove('hidden');
+            document.getElementById('controls').classList.remove('hidden');
+            document.getElementById('qrContainer').classList.remove('qr-zoom');
+            document.getElementById('zoomText').classList.add('hidden');
+            document.getElementById('zoomOptions').classList.add('hidden');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.opacity = "1";
+                setTimeout(() => { toast.style.opacity = "0"; }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
